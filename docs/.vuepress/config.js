@@ -3,6 +3,7 @@ module.exports = {
   description: 'JavaScript基础语法',
   // dest:'.vuepress/dist', // 默认值
   dest:'dist',
+  base:'/allx-javascript/',
   markdown: {
     lineNumbers: true // 代码块显示行号
   },
