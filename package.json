@@ -1,0 +1,29 @@
+{
+  "name": "allx-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "vuepress": "^1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev":"npx vuepress dev docs",
+    "build":"npx vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CHENGCHANGHU/allx-javascript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CHENGCHANGHU/allx-javascript/issues"
+  },
+  "homepage": "https://github.com/CHENGCHANGHU/allx-javascript#readme"
+}
