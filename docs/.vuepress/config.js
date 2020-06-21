@@ -10,6 +10,7 @@ module.exports = {
   themeConfig: {
     sidebar: [ // 可以省略 .md 拓展名
       '/', // 以 / 结尾的路径将会被视为 */README.md，这个链接的文字将会被自动获取到
+      ['/use', 'vuepress + github pages'],
       ['/ALLX-JavaScript', 'JS基础语法']
     ],
     sidebarDepth: 3,
