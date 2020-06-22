@@ -1,19 +1,52 @@
 module.exports = {
-  title: 'Allx-JavaScript基础语法', // 设置网站标题
-  description: 'JavaScript基础语法',
+  title: '黄橙笔记', // 设置网站标题
+  description: '黄橙笔记',
   // dest:'.vuepress/dist', // 默认值
-  dest:'dist',
-  base:'/allx-javascript/',
+  dest: 'dist',
+  base: '/allx-javascript/',
+  head: [
+    ['link',
+      {
+        rel: 'icon',
+        href: '/sparrow.png'
+      }
+      //浏览器的标签栏的网页图标，第一个'/'会遍历public文件夹的文件
+    ],
+  ],
   markdown: {
     lineNumbers: true // 代码块显示行号
   },
   themeConfig: {
     sidebar: [ // 可以省略 .md 拓展名
-      '/', // 以 / 结尾的路径将会被视为 */README.md，这个链接的文字将会被自动获取到
-      ['/use', 'vuepress + github pages'],
+      ['/', '首页'], // 以 / 结尾的路径将会被视为 */README.md，这个链接的文字将会被自动获取到
+      ['/use', 'vuepress + github pages搭建静态网页'],
       ['/ALLX-JavaScript', 'JS基础语法']
     ],
     sidebarDepth: 3,
-    activeHeaderLinks: true, 
+    activeHeaderLinks: true,
+    lastUpdated: '最近更新', // string | boolean
+    logo: './hc-logo.png',
+    nav: [{
+        text: '首页',
+        link: '/'
+      }, {
+        text: '笔记',
+        ariaLabel: '笔记', //用于识别的label
+        items: [{
+            text: '技术',
+            link: '/tech/tech-test.md'
+          },
+          //点击标签会跳转至link的markdown文件生成的页面
+          {
+            text: '小文',
+            link: '/essay/essay-test.md'
+          },
+        ]
+      },
+      {
+        text: "Github",
+        link: 'https://github.com/CHENGCHANGHU/allx-javascript'
+      }
+    ],
   }
 }

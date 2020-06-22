@@ -35,7 +35,7 @@
          }
       }
       ``` 
-   2. 在`docs`文件夹中添加`md`文件，在`docs/.vuepress/config.js`中`module.exports.themeConfig`中添加文件（可以省略`md`后缀）
+   2. 在`docs`文件夹中添加`md`文件，在`docs/.vuepress/config.js`中`module.exports.themeConfig`中添加文件（可以省略`md`后缀），在`docs/.vuepress/public`中添加静态文件（图片等），在`docs/.vuepress/config.js`及`md`文件中即是`/`目录
    3. 在项目根目录下使用`npm run dev`命令启动开发模式，使用`npm run build`构建项目（编译静态文件）
 
 ## 3 部署到github pages
