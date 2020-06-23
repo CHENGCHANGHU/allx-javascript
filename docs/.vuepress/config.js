@@ -8,7 +8,7 @@ module.exports = {
     ['link',
       {
         rel: 'icon',
-        href: '/sparrow.png'
+        href: '/img/sparrow.png'
       }
       //浏览器的标签栏的网页图标，第一个'/'会遍历public文件夹的文件
     ],
@@ -19,13 +19,13 @@ module.exports = {
   themeConfig: {
     sidebar: [ // 可以省略 .md 拓展名
       ['/', '首页'], // 以 / 结尾的路径将会被视为 */README.md，这个链接的文字将会被自动获取到
-      ['/use', 'vuepress + github pages搭建静态网页'],
-      ['/ALLX-JavaScript', 'JS基础语法']
+      ['/tech/use.md', 'vuepress + github pages搭建静态网页'],
+      ['/tech/ALLX-JavaScript.md', 'JS基础语法']
     ],
     sidebarDepth: 3,
     activeHeaderLinks: true,
     lastUpdated: '最近更新', // string | boolean
-    logo: './hc-logo.png',
+    logo: './img/hc-logo.png',
     nav: [{
         text: '首页',
         link: '/'
@@ -42,6 +42,10 @@ module.exports = {
             link: '/essay/essay-test.md'
           },
         ]
+      },
+      {
+        text: "自制版笔记",
+        link: 'https://chengchanghu.github.io/studynote/'
       },
       {
         text: "Github",

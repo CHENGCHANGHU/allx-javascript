@@ -1,10 +1,10 @@
 ---
 home: true
-heroImage: /hc-logo.png
+heroImage: /img/hc-logo.png
 heroText: 黄橙笔记
 tagline: 一年好景君须记 最是橙黄橘绿时
 actionText: 开始阅览 →
-actionLink: /ALLX-JavaScript.html
+actionLink: /tech/ALLX-JavaScript.html
 features:
 - title: 人贵以专
   details: 伟大
