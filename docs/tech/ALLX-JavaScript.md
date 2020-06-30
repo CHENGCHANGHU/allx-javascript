@@ -1,7 +1,5 @@
 # JavaScript
 
-[TOC]
-
 ---
 
 ## 1 JS编程风格是函数式编程和面向对象编程的混合体
@@ -1578,291 +1576,243 @@ i && doSomething();
 	- 解除引用（dereferencing）：手动切断变量与之前引用的连接，赋新值为null，本质是使变量脱离执行环境，使其在下一次垃圾回收时被回收
 
 
-## 10 面向对象
+## 10 面向对象编程
+   > JS中的对象基于引用类型创建
 
-### 每个对象都是基于一个引用类型创建的
+### 10.1 属性类型：数据属性、访问器属性
+#### 10.1.1 数据属性  
+   - Configurable 
+   - Enumerable：能否通过for in遍历
+   - Writeable
+   - Value
+   - 修改属性的特性，使用Object.defineProperty，参数为：属性所在的对象、属性名、描述符对象
 
-### 两种属性：
-数据属性
-访问器属性
+#### 10.2.2 访问器属性
+   - Configurable
+   - Enumerable：能否通过for in遍历
+   - Get：读取属性时调用的函数
+   - Set：设置属性时调用的函数
+   - 不包含数据值，包含一对getter和setter函数（getter：返回值，setter：设置新值）
+   - 不能直接定义，必须使用Object.defineProperty
 
-- 数据属性
+### 10.3 创建对象八式
+#### 10.3.1 第一式：工厂模式
+   > 工厂函数返回构造好的对象  
+   ```js
+   function createPerson1(name, age) {
+      var obj = new Object();
+      obj.name = name;
+      obj.age = age;
+      obj.sayHello=function(){
+         console.log(`name: ${this.name}`);
+      }
+      return obj;
+   }
 
-	- Configurable
-	- Enumerable：能否通过for in遍历
-	- Writeable
-	- Value
-	- 修改属性的特性，使用Object.defineProperty
-属性所在的对象
-属性名
-描述符对象
+   var p11 = createPerson1("allx", 12);
+   ```
 
-- 访问器属性
+#### 10.3.2 第二式：构造函数模式
+   ```js
+   function Person2(name, age) {
+      this.name = name;
+      this.age = age;
+      this.sayHello = function () {
+         console.log(`name: ${this.name}`);
+      }
+   }
 
-	- Configurable
-	- Enumerable：能否通过for in遍历
-	- Get：读取属性时调用的函数
-	- Set：设置属性时调用的函数
-	- 不包含数据值，包含一对getter和setter函数
-getter：返回值
-setter：设置新值
-	- 不能直接定义，必须使用Object.defineProperty
+   let p21 = new Person2("allx", 12);
+   ```
+   - 步骤：  
+      1）创建一个新对象  
+      2）将构造函数的作用域（执行环境对象）赋值给新对象（this也就指向这个对象）  
+      3）执行构造函数中的代码，为新对象添加属性  
+      4）返回新对象  
+   - 把构造函数当做普通函数使用？this会绑定到全局变量上，因为函数中的this在运行时确定，哪个执行环境对象调用该函数，this就指向谁
+   - 函数也是对象，所以与属性无二，因此使用构造函数创建的实例对象的函数属性都是新创建的，不同实例上的同名函数时不相等的（不是指向同一内存地址）
 
-### 创建对象
-
-- 工厂模式
-
-	- function createPerson1(name, age) {
-  var obj = new Object();
-  obj.name = name;
-  obj.age = age;
-  obj.sayHello=function(){
-    console.log(`name: ${this.name}`);
-  }
-  return obj;
-}
-
-var p11 = createPerson1("allx", 12);
-
-- 构造函数模式
-
-	- 步骤
-1）创建一个新对象
-2）将构造函数的作用域（执行环境对象）赋值给新对象（this也就指向这个对象）
-3）执行构造函数中的代码，为新对象添加属性
-4）返回新对象
-
-		- function Person2(name, age) {
-  this.name = name;
-  this.age = age;
-  this.sayHello = function () {
-    console.log(`name: ${this.name}`);
-  }
-}
-
-let p21 = new Person2("allx", 12);
-
-	- 把构造函数当做普通函数使用？this会绑定到全局变量上，因为函数中的this在运行时确定，哪个执行环境对象调用该函数，this就指向谁
-	- 函数也是对象，所以与属性无二，因此构造函数的实例对象的函数属性都是新创建的，不同实例上的同名函数时不相等的（不是指向同一内存地址）
-
-- 原型模式
-
-	- 每个构造函数都有prototype属性，指针，指向一个对象，是调用构造函数创建的对象实例的原型对象，可以让所有对象实例共享它的属性和方法
-
-		- function Person3() {}
-Person3.prototype.name = "allx";
-Person3.prototype.age = 12;
-Person3.prototype.sayHello = function () {
-  console.log(`name: ${this.name}`);
-};
-
-let p31 = new Person3();
-
-	- 无论何时，都会为新创建的函数对象指定一个prototype属性，该属性指向函数对象的原型对象，原型对象的constructor属性指向该函数对象，使用该函数创建的对象实例的__proto__属性也指向函数对象的原型对象
-	- 构造函数与其对象实例并无直接关系
-	- Object.getPrototypeOf(p)：返回对象实例p对应的构造函数的原型对象
-	- 虽然可以通过对象实例访问原型中的值，但不能修改该值，给对象实例设置与原型属性同名的属性，会在对象实例上新创建属性，屏蔽掉原型上的属性，除非使用delete操作符，才能继续访问原型上的属性
-	- hasOwnProperty方法判断一个属性是实例上的还是原型上的
-	- in操作符
-	
-		- 单独使用：在给定对象能访问给定属性时返回true，无论该属性在原型上还是实例上
-		- for in：返回的是所有能通过对象访问、可枚举的属性，无论原型还是实例
-	
-	- 原型是动态的，每次查找属性都是一次原型链上的搜索，任何原型的修改都会立即反应
-	- 原型对象的重写：将构造函数的原型对象指针指向一个新对象，此时需要重写constructor属性
-	
-		- function Person32() {}
-Person32.prototype = {
-  name: "allx",
-  age: 18,
-  sayHello: function () {
-    console.log(`name: ${this.name}`);
-  }
-}
-Object.defineProperty(Person32.prototype, "constructor", {
-  enumerable: false,
-  value: Person32
-});
-
-let p32 = new Person32();
-
-	- 实例中的指针仅指向原型，不指向构造函数，重写原型对象会切断现有原型与之前任何已存在的对象实例的联系
-	- 问题：原型上的属性被实例共享，函数、基本数据类型没有太多问题，但是引用类型数据存在一些问题（引用类型存储的是一个指向堆内存的指针）
-
-- 组合构造函数和原型模式
-混成模式
-
-	- 构造函数定义实例属性和方法
-原型模式定义静态共享方法和属性
-
-		- function Person4(name, age) {
-  this.name = name;
-  this.age = age;
-}
-Person4.prototype.sayHello = function () {
-  console.log(`name: ${this.name}`);
-}
-
-let p41 = new Person4("allx", 21);
-
-- 动态原型模式
-
-	- 封装实例属性/方法和静态方法/属性
-
-		- function Person5(name, age) {
-  this.name = name;
-  this.age = age;
-  if (typeof this.sayHello != "function") {
-    Person5.prototype.sayHello = function () {
+#### 10.3.3 第三式：原型模式
+   ```js
+   function Person3() {} // 构造函数
+   Person3.prototype.name = "allx";
+   Person3.prototype.age = 12;
+   Person3.prototype.sayHello = function () {
       console.log(`name: ${this.name}`);
-    }
-  }
-}
+   };
 
-let p51 = new Person5("allx", 21);
+   let p31 = new Person3();
+   ```
+   - 每个构造函数都有prototype属性（指针，函数也是引用类型），指向函数对象的原型对象，也是调用构造函数创建的对象实例的原型对象，可以让所有对象实例共享它的属性和方法。**构造函数的prototype属性指向原型对象，原型对象的constructor属性指向该构造函数，使用该构造函数创建的对象实例的__proto__属性指向构造函数的原型对象（Object.getPrototypeOf(p)也可返回对象实例p对应的构造函数的原型对象）**。构造函数与其创建的对象实例并无直接关系。
+      ```js
+      function Person() {}
+      Person.prototype.showType = () => 
+         console.log("Person prototype's function showType");
+      let p1 = new Person();
+      let p2 = new Person();
+      console.log(Person.prototype); // Person { showType: [Function] }
+      console.log(Person.prototype.constructor); // [Function: Person]
+      console.log(p1.prototype); // undefined
+      console.log(p2.prototype); // undefined
+      console.log(p2.__proto__); // Person { showType: [Function] }
+      console.log(p2.__proto__); // Person { showType: [Function] }
+      p1.showType(); // Person prototype's function showType
+      ```
+   - 虽然可以通过对象实例访问原型中的值，但不能修改该值，给对象实例设置与原型属性同名的属性，会在对象实例上新创建属性，屏蔽掉原型上的属性，除非使用delete操作删除实例对象的属性，才能继续访问原型上的属性，Object.prototype.hasOwnProperty方法判断一个属性是实例上的还是原型上的（实例上的属性则返回true）。原型是动态的，每次查找属性都是一次原型链上的搜索，任何原型的修改都会立即反应
+   - 重写原型对象：将构造函数的原型对象指针指向一个新对象，此时需要重写原型对象的constructor属性。对象实例中的`__proto__`指针仅指向构造函数的原型对象，不指向构造函数，重写原型对象会切断现有原型对象与之前任何已存在的对象实例的联系。
+      ```js
+      function Person32() {}
+      Person32.prototype = {
+         name: "allx",
+         age: 18,
+         sayHello: function () {
+            console.log(`name: ${this.name}`);
+         }
+      }
+      Object.defineProperty(Person32.prototype, "constructor", {
+         enumerable: false,
+         value: Person32
+      });
 
-	- 第一次创建对象时初始化原型对象，这时不能重写原型对象，避免切断联系
+      let p32 = new Person32();
+      ```
 
-- 寄生构造函数模式
+#### 10.3.4 第四式：混成模式（组合构造函数和原型模式）
+   > 构造函数定义实例属性和方法，原型模式定义静态共享方法和属性
+   ```js
+   function Person4(name, age) {
+      this.name = name;
+      this.age = age;
+   }
+   Person4.prototype.sayHello = function () {
+      console.log(`name: ${this.name}`);
+   }
 
-	- 封装创建对象的代码，再返回该对象
-与工厂模式类似，只是是使用new
+   let p41 = new Person4("allx", 21);
+   ```
 
-		- function Person6(name, age) {
-  var obj = new Object();
-  obj.name = name;
-  obj.age = age;
-  obj.sayHello = function () {
-    console.log(`name: ${this.name}`);
-  }
-  return obj;
-}
+#### 10.3.5 第五式：动态原型模式
+   > 封装实例属性/方法和静态方法/属性，第一次创建对象时初始化原型对象，这时不能重写原型对象，避免切断联系
+      ```js
+      function Person5(name, age) {
+         this.name = name;
+         this.age = age;
+         if (typeof this.sayHello != "function") { 
+            // 避免每次调用Person5构造对象都执行
+            Person5.prototype.sayHello = function () {
+               console.log(`name: ${this.name}`);
+            }
+         }
+      }
 
-let p61 = new Person6("allx", 23);
+      let p51 = new Person5("allx", 21);
+      ```
 
-	- 返回的对象与构造函数或者与构造函数的原型属性之间没有关系，构造函数返回的对象与在构造函数外创建的对象没有什么不同
+#### 10.3.6 第六式：寄生构造函数模式
+   > 封装创建对象的代码，再返回该对象，与工厂模式类似，只是是使用new。返回的对象与构造函数或者与构造函数的原型属性之间没有关系，构造函数返回的对象与在构造函数外创建的对象没有什么不同
+      ```js
+      function Person6(name, age) {
+         var obj = new Object();
+         obj.name = name;
+         obj.age = age;
+         obj.sayHello = function () {
+            console.log(`name: ${this.name}`);
+         }
+         return obj;
+      }
 
-- 稳妥构造函数模式
+      let p61 = new Person6("allx", 23);
+      ```
 
-	- 稳妥对象：没有公共属性，方法也不需要引用this
-	- 与寄生构造函数类似，但不引用this，不使用new
+#### 10.3.7 第七式：稳妥构造函数模式
+   - 稳妥对象：没有公共属性，方法也不需要引用this。与寄生构造函数类似，但不引用this，不使用new。返回的对象与构造函数或者与构造函数的原型属性之间没有关系
+   ```js
+   function Person7(name, age) {
+      var obj = new Object();
 
-		- function Person7(name, age) {
-  var obj = new Object();
-  obj.name = name;
-  obj.age = age;
-  obj.sayHello = function () {
-    console.log(`name: ${name}`);
-  }
-  return obj;
-}
+      obj.sayName = function () {
+         console.log(`name: ${name}`);
+      }
+      
+      obj.sayAge = function () {
+         console.log(`age: ${age}`);
+      }
+      return obj;
+   }
 
-let p71 = new Person7("allx", 23);
+   let p71 = new Person7("allx", 23);
+   ```
 
-	- 返回的对象与构造函数或者与构造函数的原型属性之间没有关系
+#### 10.3.8 第八式：class类模式（ES6语法糖）
+   - 接近传统语言的写法，让对象原型的写法更加清晰、更像面向对象编程的语法，类必须使用new调用，否则会报错。class中的constructor方法就是构造方法，this指向实例对象，方法之间不需要逗号分割，使用时也是使用new命令（与构造函数相同）
+      ```js
+      class Person8 {
+         constructor(name, age) {
+            this.name = name;
+            this.age = age;
+            this.hobbies = ["jump", "rap"];
+         }
 
-- class类模式
-ES6语法糖
+         sayHello() {
+            console.log(`name: ${this.name}`);
+         }
+      }
 
-	- 接近传统语言的写法，让对象原型的写法更加清晰、更像面向对象编程的语法，类必须使用new调用，否则会报错
-	- class中的constructor方法就是构造方法，this代表实例对象，方法之间不需要逗号分割，使用时也是使用new命令（与构造函数相同）
-
-		- class Person8 {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-    this.hobbies = ["jump", "rap"];
-  }
-
-  sayHello() {
-    console.log(`name: ${this.name}`);
-  }
-}
-
-p41 = new Person8("allx", 12);
-
-	- 类的数据类型就是函数，类本身就指向构造函数
-	- 构造函数的prototype属性，在 ES6 的“类”上面继续存在
+      p41 = new Person8("allx", 12);
+      ```
+   - 类的数据类型就是函数，类本身就指向构造函数
+   - 构造函数的prototype属性，在 ES6 的“类”上面继续存在
+      - 类的所有方法都定义在类的prototype属性上面，在类的实例上面调用方法，其实就是调用原型上的方法
+      - 由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面
 	
-		- 类的所有方法都定义在类的prototype属性上面，在类的实例上面调用方法，其实就是调用原型上的方法
-		- 由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面
-	
-	- 类的内部所有定义的方法，都是不可枚举的（non-enumerable）
-	- constructor方法
-	
-		- 类的默认方法，通过new命令生成对象实例时，自动调用该方法，一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加
-		- 默认返回实例对象（即this），完全可以指定返回另外一个对象
-	
-	- 类的实例
-	
-		- 实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
-		- 类的所有实例共享一个原型对象
-	
-	- 取值函数
-存值函数
-
-		- 存值函数和取值函数是设置在属性的 Descriptor 对象上的
-	
-	- 类的属性名可使用方括号加表达式
-	- class表达式
-	
-		- 采用 Class 表达式，可以写出立即执行的 Class
-	
-	- 注意点
-	
-		- 类和模块都是默认严格模式
-		- 类中不存在变量提升
-		- name属性返回紧跟在class后的类名
-		- 方法名前加*表示生成函数
-		- 类中this默认指向类的实例
-	
-			- 如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境（由于 class 内部是严格模式，所以 this 实际指向的是undefined）
-			- 解决方法：
-1）在构造方法中绑定this，这样就不会找不到print方法了，
-2）使用箭头函数（箭头函数内部的this总是指向定义时所在的对象），
-3）使用Proxy，获取方法的时候，自动绑定this
-
-	- 静态方法
-	
-		- 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
-		- 注意，如果静态方法包含this关键字，这个this指的是类，而不是实例
-		- 父类的静态方法，可以被子类继承
-		- 静态方法也可以从super对象上调用的
-	
-	- 实例属性
-	
-		- 实例属性除了定义在constructor()方法里面的this上面，也可以定义在类的最顶层
-	
-			- 所有实例对象自身的属性都定义在类的头部，看上去简洁
-	
-	- 静态属性
-	
-		- Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性
-	
-			- Person8.staticProp=“ppppp”；
-	
-		- 一个提案提供了类的静态属性，写法是在实例属性的前面，加上static关键字
-	
-	- 私有方法
-私有属性
-
-		- 只能在类的内部访问的方法和属性，外部不能访问，有利于代码的封装，但 ES6 不提供，只能通过变通方法模拟实现
-		- 模拟
-	
-			- 命名区别
-			- 将私有方法移出模块，因为模块内部的所有方法都是对外可见的
-			- 利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值
-	
-		- 一个提案，为class加了私有属性。方法是在属性名或方法之前，使用#表示
-	
-	- new.target
-	
-		- ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数
-		- 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
-		- Class 内部调用new.target，返回当前 Class
-		- 子类继承父类时，new.target会返回子类
-	
-			- 可以写出不能独立使用、必须继承后才能使用的类
+   - 类的内部所有定义的方法，都是不可枚举的（non-enumerable）
+   - constructor方法
+      - 类的默认方法，通过new命令生成对象实例时，自动调用该方法，一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加
+      - 默认返回实例对象（即this），完全可以指定返回另外一个对象
+   - 类的实例
+      - 实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
+      - 类的所有实例共享一个原型对象
+	- 取值函数、存值函数
+      - 存值函数和取值函数是设置在属性的 Descriptor 对象上的
+   - 类的属性名可使用方括号加表达式
+   - class表达式
+      - 采用 Class 表达式，可以写出立即执行的 Class
+   - 注意点
+      - 类和模块都是默认严格模式
+      - 类中不存在变量提升
+      - name属性返回紧跟在class后的类名
+      - 方法名前加*表示生成函数
+      - 类中this默认指向类的实例
+         - 如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境（由于 class 内部是严格模式，所以 this 实际指向的是undefined）
+         - 解决方法：  
+            1）在构造方法中绑定this，这样就不会找不到print方法了，  
+            2）使用箭头函数（箭头函数内部的this总是指向定义时所在的对象），  
+            3）使用Proxy，获取方法的时候，自动绑定this  
+   - 静态方法
+      - 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
+      - 注意，如果静态方法包含this关键字，这个this指的是类，而不是实例
+      - 父类的静态方法，可以被子类继承
+      - 静态方法也可以从super对象上调用的
+   - 实例属性
+      - 实例属性除了定义在constructor()方法里面的this上面，也可以定义在类的最顶层
+         - 所有实例对象自身的属性都定义在类的头部，看上去简洁
+   - 静态属性
+      - Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性
+         `Person8.staticProp=“ppppp”；`
+      - 一个提案提供了类的静态属性，写法是在实例属性的前面，加上static关键字
+   - 私有方法、私有属性
+      - 只能在类的内部访问的方法和属性，外部不能访问，有利于代码的封装，但 ES6 不提供，只能通过变通方法模拟实现
+      - 模拟	
+         - 命名区别
+         - 将私有方法移出模块，因为模块内部的所有方法都是对外可见的
+         - 利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值
+      - 一个提案，为class加了私有属性。方法是在属性名或方法之前，使用#表示
+   - new.target
+      - ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数
+      - 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
+      - Class 内部调用new.target，返回当前 Class
+      - 子类继承父类时，new.target会返回子类
+         - 可以写出不能独立使用、必须继承后才能使用的类
 
 ### 继承
 
