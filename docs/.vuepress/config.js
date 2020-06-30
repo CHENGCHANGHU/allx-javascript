@@ -26,7 +26,7 @@ module.exports = {
     sidebarDepth: 3,
     activeHeaderLinks: true,
     lastUpdated: '最近更新', // string | boolean
-    logo: './img/hc-logo.png',
+    logo: '/img/hc-logo.png',
     nav: [{
         text: '首页',
         link: '/'
