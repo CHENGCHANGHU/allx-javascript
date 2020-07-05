@@ -31,3 +31,28 @@
    4. `mounted` 被新创建的 vm.$el 替换，挂载成功
    5. `beforeUpdate` 数据更新时调用
    6. `updated` 组件 DOM 已经更新完成，组件更新完成
+
+- v-once 只渲染一次，不可更改
+- v-html 将字符串渲染成子级html元素或者替换掉子级html元素
+   ```js
+   <p>using v-html:
+      <span v-html="app4_p2"></span>
+   </p>
+   <p v-html="app4_p2">using v-html:</p>
+
+   let app4vm = new Vue({
+      el: '#app4',
+      data: {
+         app4_p2: '<span style="color:brown">伟大、无私、正经的黄橙先生</span>',
+      },
+   });
+   // ==>
+   <p>using v-html:
+      <span v-html="app4_p2">
+         <span style="color:brown">伟大、无私、正经的黄橙先生</span>
+      </span>
+   </p>
+   <p v-html="app4_p2">
+      <span style="color:brown">伟大、无私、正经的黄橙先生</span>
+   </p>
+   ```

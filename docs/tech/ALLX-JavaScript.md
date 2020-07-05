@@ -274,10 +274,11 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
 
 ### 6.1 JavaScript 语言的每一个值，都属于某一种数据类型
 
-### 6.2 原始类型
-1. 基础类型
-   1. 基本类型：简单的数据段，undefined、null、boolean、number、string，按值访问，可以操作保存在变量中实际的值，栈内存
-   2. undefined: undefined是一个表示"此处无定义"的原始值，转为数值时为NaN
+### 6.2 原始类型/基础类型
+#### 6.2.1 基本类型：
+   简单的数据段，undefined、null、boolean、number、string，按值访问，可以操作保存在变量中实际的值，栈内存
+
+#### 6.2.2 undefined: undefined是一个表示"此处无定义"的原始值，转为数值时为NaN
       ```js
       // 1）变量声明了，但没有赋值
       var i;
@@ -285,7 +286,7 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
 
       // 2）调用函数时，应该提供的参数没有提供，该参数等于 undefined
       function f(x) {
-       return x;
+         return x;
       }
       f() // undefined
 
@@ -297,19 +298,19 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
       function f() {}
       f() // undefined
       ```
-   3. null: null是一个表示“空”的对象，转为数值时为0  
-   4. boolean: 布尔类型  
+#### 6.2.3 null: null是一个表示“空”的对象，转为数值时为0  
+#### 6.2.4 boolean: 布尔类型  
       下列运算符会返回布尔值：  
       1. 前置逻辑运算符： ! (Not)
       2. 相等运算符：===，!==，==，!=
       3. 比较运算符：>，>=，<，<=  
       > 如果 JavaScript 预期某个位置应该是布尔值（参与**逻辑运算**或**作为条件表达式**），会将该位置上现有的值自动转为布尔值，undefined、null、0、NaN、""或''（空字符串）五个值会转为false。  
       > **注意：空数组（[]）和空对象（{}）对应的布尔值，都是true**
-   5. number: 数值类型  
-      1. JS内部，**所有数字都是以64位浮点数形式储存**，即使整数也是如此，底层根本没有整数，所有数字都是小数，浮点数不精确，涉及小数的计算和比较需要注意。`1 === 1.0 // true`  
-      2. 数值精度: (-1)^符号位 * 1.xx...xx * 2^指数部分  
-      3. 数值范围  
-      4. 数值进制   
+#### 6.2.5 number: 数值类型  
+   1. JS内部，**所有数字都是以64位浮点数形式储存**，即使整数也是如此，底层根本没有整数，所有数字都是小数，浮点数不精确，涉及小数的计算和比较需要注意。`1 === 1.0 // true`  
+   2. 数值精度: (-1)^符号位 * 1.xx...xx * 2^指数部分  
+   3. 数值范围  
+   4. 数值进制   
          - 使用字面量（literal）直接表示一个数值时，JS对整数提供四种进制的表示方法：十进制、十六进制、八进制、二进制：
          - 1）十进制（Decimal）：没有前导0的数值。
          2）八进制（Octal）：有前缀0o或0O的数值，且只用到0-7的八个阿拉伯数字的数值。
@@ -317,9 +318,9 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
          - 4）二进制（Binary）：有前缀0b或0B的数值。  
          > 前导0表示八进制，处理时很容易造成混乱。ES5 的严格模式和 ES6，已经废除了这种表示法。  
          > 默认情况下，JS内部会自动将八进制、十六进制、二进制转为十进制
-      5. 特殊数值
-         - 正零和负零: 除当做分母外不同（得到正负Infinity），其余时刻都等于正常0
-         - NaN（Not a Number）: 表示一个本要返回数值的操作数未返回数值的情况，避免抛出错误。出现在将字符串解析成数字、数学函数的运算结果出错的场合。
+   5. 特殊数值
+      - 正零和负零: 除当做分母外不同（得到正负Infinity），其余时刻都等于正常0
+      - NaN（Not a Number）: 表示一个本要返回数值的操作数未返回数值的情况，避免抛出错误。出现在将字符串解析成数字、数学函数的运算结果出错的场合。
             ```js
             5 - 'x' // NaN
             Math.acos(2) // NaN
@@ -332,91 +333,91 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
             NaN与任何数（包括它自己）的运算，得到的都是NaN，NaN不等于任何值，包括它本身  
             涉及NaN的操作都返回NaN。  
             NaN不与任何值相等，包括NaN，只能使用 `Number.isNaN(...)` 或 `Object.is(..., NaN)` 判断一个值是否为NaN。  
-         - Infinity: 表示“无穷”，表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非0数值除以0，得到Infinity
-      6. 全局方法（window对象的方法）
-         - parseInt()  
-            用于将字符串转为整数；` parseInt('123') // 123`  
-            如果字符串头部有空格，空格会被自动去除；`parseInt('   81') // 81`  
-            如果parseInt的参数不是字符串，则会先转为字符串再转换；
-            ```js
-            parseInt(1.23) // 1
-            // 等同于
-            parseInt('1.23') // 1
+      - Infinity: 表示“无穷”，表示两种场景。一种是一个正的数值太大，或一个负的数值太小，无法表示；另一种是非0数值除以0，得到Infinity
+   6. 全局方法（window对象的方法）
+      - parseInt()  
+         用于将字符串转为整数；` parseInt('123') // 123`  
+         如果字符串头部有空格，空格会被自动去除；`parseInt('   81') // 81`  
+         如果parseInt的参数不是字符串，则会先转为字符串再转换；
+         ```js
+         parseInt(1.23) // 1
+         // 等同于
+         parseInt('1.23') // 1
 
-            parseInt(0x11, 36) // 43
-            parseInt(0x11, 2) // 1
-            // 等同于
-            parseInt(String(0x11), 36)
-            parseInt(String(0x11), 2)
-            // 等同于
-            parseInt('17', 36)
-            parseInt('17', 2)
-            // 0x11先默认转为十进制17，再转为字符串
-            ```  
-            字符串转为整数的时候，是一个个字符依次转换，如果遇到不能转为数字的字符，就不再进行下去，返回已经转好的部分；（Number函数是有非数字就NaN）
-            ```js
-            parseInt('8a') // 8
-            parseInt('12**') // 12
-            parseInt('12.34') // 12
-            parseInt('15e2') // 15
-            parseInt('15px') // 15
-            ```  
-            如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回NaN  
-            ```js
-            parseInt('abc') // NaN
-            parseInt('.3') // NaN
-            parseInt('') // NaN
-            parseInt('+') // NaN
-            parseInt('+1') // 1
-            ```  
-            返回值只有两种可能，要么是一个十进制整数，要么是NaN  
-            如果字符串以0x或0X开头，parseInt会将其按照十六进制数解析；如果字符串以0开头，将其按照10进制解析  
-            进制转换：接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数  
-            ```js
-            parseInt('1000', 10) // 1000
-            parseInt('1000', 2) // 8
-            parseInt('1000', 6) // 216
-            parseInt('1000', 8) // 512
-            ```  
-         - parseFloat()  
-            用于将一个字符串转为浮点数  
-            如果字符串包含不能转为浮点数的字符，则不再进行往后转换，返回已经转好的部分  
-            自动过滤字符串前导的空格  
-            如果参数不是字符串，或者字符串的第一个字符不能转化为浮点数，则返回NaN
-            ```js
-            parseFloat([]) // NaN
-            parseFloat('FF2') // NaN
-            parseFloat('') // NaN
-            ```
-         - isNaN(): 用来判断一个值是否为NaN
-            ```js
-            isNaN(NaN) // true
-            isNaN(123) // false
-            ```
-            isNaN只对数值有效，如果传入其他值，会被先转成数值
-            ```js
-            isNaN('Hello') // true
-            // 相当于
-            isNaN(Number('Hello')) // true
-            ```
-            但是，对于空数组和只有一个数值成员的数组，isNaN返回false
-         - isFinite(): 返回一个布尔值，表示某个值是否为正常的数值
-   6. string: 字符串类型
-      1. 字符串就是零个或多个排在一起的字符，放在单引号、双引号或反引号之中
-      2. 反斜杠（\）在字符串内有特殊含义，用来表示一些特殊字符，所以又称为转义符
-      3. 字符串可以被视为字符数组
-         - 可以使用数组的方括号运算符，用来返回某个位置的字符（位置编号从0开始）
-         - 如果方括号中的数字超过字符串的长度，或者方括号中根本不是数字，则返回undefined
-         - 实际上，无法改变字符串之中的单个字符
-      4. length属性: 返回字符串的长度，该属性也是无法改变的
-      5. 每个字符在 JavaScript 内部都是以16位（即2个字节）的 UTF-16 格式储存。也就是说，JS的单位字符长度固定为16位长度，即2个字节
-      6. Base64 转码
-         - 文本里面包含一些不可打印的符号，比如 ASCII 码 0 到 31 的符号都无法打印出来，这时可以使用 Base64 编码，将它们转成可以打印的字符。另一个场景是，有时需要以文本格式传递二进制数据，那么也可以使用 Base64 编码
-         - Base64 就是一种编码方法，可以将任意值转成 0～9、A～Z、a-z、+和/这64个字符组成的可打印字符。使用它的主要目的，不是为了加密，而是为了不出现特殊字符，简化程序的处理
-         - 原生方法
-            - btoa()：任意值转为 Base64 编码（原生）
-            - atob()：Base64 编码转为原来的值（原生）
-            > 注意，这两个方法不适合非 ASCII 码的字符，会报错。要将非 ASCII 码字符转为 Base64 编码，**必须中间插入一个转码环节**，再使用这两个方法
+         parseInt(0x11, 36) // 43
+         parseInt(0x11, 2) // 1
+         // 等同于
+         parseInt(String(0x11), 36)
+         parseInt(String(0x11), 2)
+         // 等同于
+         parseInt('17', 36)
+         parseInt('17', 2)
+         // 0x11先默认转为十进制17，再转为字符串
+         ```  
+         字符串转为整数的时候，是一个个字符依次转换，如果遇到不能转为数字的字符，就不再进行下去，返回已经转好的部分；（Number函数是有非数字就NaN）
+         ```js
+         parseInt('8a') // 8
+         parseInt('12**') // 12
+         parseInt('12.34') // 12
+         parseInt('15e2') // 15
+         parseInt('15px') // 15
+         ```  
+         如果字符串的第一个字符不能转化为数字（后面跟着数字的正负号除外），返回NaN  
+         ```js
+         parseInt('abc') // NaN
+         parseInt('.3') // NaN
+         parseInt('') // NaN
+         parseInt('+') // NaN
+         parseInt('+1') // 1
+         ```  
+         返回值只有两种可能，要么是一个十进制整数，要么是NaN  
+         如果字符串以0x或0X开头，parseInt会将其按照十六进制数解析；如果字符串以0开头，将其按照10进制解析  
+         进制转换：接受第二个参数（2到36之间），表示被解析的值的进制，返回该值对应的十进制数  
+         ```js
+         parseInt('1000', 10) // 1000
+         parseInt('1000', 2) // 8
+         parseInt('1000', 6) // 216
+         parseInt('1000', 8) // 512
+         ```  
+      - parseFloat()  
+         用于将一个字符串转为浮点数  
+         如果字符串包含不能转为浮点数的字符，则不再进行往后转换，返回已经转好的部分  
+         自动过滤字符串前导的空格  
+         如果参数不是字符串，或者字符串的第一个字符不能转化为浮点数，则返回NaN
+         ```js
+         parseFloat([]) // NaN
+         parseFloat('FF2') // NaN
+         parseFloat('') // NaN
+         ```
+      - isNaN(): 用来判断一个值是否为NaN
+         ```js
+         isNaN(NaN) // true
+         isNaN(123) // false
+         ```
+         isNaN只对数值有效，如果传入其他值，会被先转成数值
+         ```js
+         isNaN('Hello') // true
+         // 相当于
+         isNaN(Number('Hello')) // true
+         ```
+         但是，对于空数组和只有一个数值成员的数组，isNaN返回false
+      - isFinite(): 返回一个布尔值，表示某个值是否为正常的数值
+#### 6.2.6 string: 字符串类型
+   1. 字符串就是零个或多个排在一起的字符，放在单引号、双引号或反引号之中
+   2. 反斜杠（\）在字符串内有特殊含义，用来表示一些特殊字符，所以又称为转义符
+   3. 字符串可以被视为字符数组
+      - 可以使用数组的方括号运算符，用来返回某个位置的字符（位置编号从0开始）
+      - 如果方括号中的数字超过字符串的长度，或者方括号中根本不是数字，则返回undefined
+      - 实际上，无法改变字符串之中的单个字符
+   4. length属性: 返回字符串的长度，该属性也是无法改变的
+   5. 每个字符在 JavaScript 内部都是以16位（即2个字节）的 UTF-16 格式储存。也就是说，JS的单位字符长度固定为16位长度，即2个字节
+   6. Base64 转码
+      - 文本里面包含一些不可打印的符号，比如 ASCII 码 0 到 31 的符号都无法打印出来，这时可以使用 Base64 编码，将它们转成可以打印的字符。另一个场景是，有时需要以文本格式传递二进制数据，那么也可以使用 Base64 编码
+      - Base64 就是一种编码方法，可以将任意值转成 0～9、A～Z、a-z、+和/这64个字符组成的可打印字符。使用它的主要目的，不是为了加密，而是为了不出现特殊字符，简化程序的处理
+      - 原生方法
+         - btoa()：任意值转为 Base64 编码（原生）
+         - atob()：Base64 编码转为原来的值（原生）
+         > 注意，这两个方法不适合非 ASCII 码的字符，会报错。要将非 ASCII 码字符转为 Base64 编码，**必须中间插入一个转码环节**，再使用这两个方法
             ```js
             function b64Encode(str) {
                return btoa(encodeURIComponent(str));
@@ -429,24 +430,24 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
             b64Encode('你好') // "JUU0JUJEJUEwJUU1JUE1JUJE"
             b64Decode('JUU0JUJEJUEwJUU1JUE1JUJE') // "你好"
             ```
-      7. 遍历器接口
-         - ES6 为字符串添加了遍历器接口，使得字符串可以被for...of循环遍历 
-            ```js
-            for (let codePoint of 'foo') {
-               console.log(codePoint)
-            }
-            // "f"
-            // "o"
-            // "o"
-            ```
-         - 优点：**可以识别大于0xFFFF的码点**，传统的for循环无法识别这样的码点
-      8. 模板字符串
-         - 模板字符串（template string）是增强版的字符串，用反引号（`）标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量
-         - 如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中
-         - 模板字符串中嵌入JS表达式，需要将表达式写在 `${}` 之中，如果大括号中的表达式值不是字符串，将按照一般的规则转为字符串
-      9. 标签模板
-         - 过滤 HTML 字符串，防止用户输入恶意内容
-         - 多语言转换（国际化处理）
+   7. 遍历器接口
+      - ES6 为字符串添加了遍历器接口，使得字符串可以被for...of循环遍历 
+         ```js
+         for (let codePoint of 'foo') {
+         console.log(codePoint)
+         }
+         // "f"
+         // "o"
+         // "o"
+         ```
+      - 优点：**可以识别大于0xFFFF的码点**，传统的for循环无法识别这样的码点
+   8. 模板字符串
+      - 模板字符串（template string）是增强版的字符串，用反引号（`）标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量
+      - 如果使用模板字符串表示多行字符串，所有的空格和缩进都会被保留在输出之中
+      - 模板字符串中嵌入JS表达式，需要将表达式写在 `${}` 之中，如果大括号中的表达式值不是字符串，将按照一般的规则转为字符串
+   9. 标签模板
+      - 过滤 HTML 字符串，防止用户输入恶意内容
+      - 多语言转换（国际化处理）
          ```js
          let name = `tiger`;
          let year = `1997`;
@@ -460,8 +461,8 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
          }
          ```
          > 标签函数的第一个参数是模板字符串的字符串部分，后面参数依次是模板字符串中的变量，也可以使用剩余参数合并成一个数组
-      1. 常用函数：toUpperCase、toLowerCase、trim、charAt、repeat、replace
-      2. 字符串截取: slice、substring、substr
+   1. 常用函数：toUpperCase、toLowerCase、trim、charAt、repeat、replace
+   2. 字符串截取: slice、substring、substr
          ```js
          let name = 'tigercheng';
 
@@ -486,13 +487,71 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
            `${id.toString().slice(0,6)}${'*'.repeat(id.toString().length-len)}`;
          console.log(secureFunc(ID, 6)); // 212998************
          ```
-      1. 字符串检索: indexOf、includes、lastIndexOf、startsWith、endsWith
-         -  indexOf、lastIndexOf 可以传入第二个参数，表示其实查找位置
-         -  includes、startsWith、endsWith 返回结果是布尔值
-         > 可以先统一转为大小写，再进行检索
-      2. 字符串替换: replace
-         - 第一个参数：被替换的字符串
-         - 第二个参数：替换字符串    
+   1. 字符串检索: indexOf、includes、lastIndexOf、startsWith、endsWith
+      -  indexOf、lastIndexOf 可以传入第二个参数，表示其实查找位置
+      -  includes、startsWith、endsWith 返回结果是布尔值
+      > 可以先统一转为大小写，再进行检索
+   2. 字符串替换: replace
+      - 第一个参数：被替换的字符串
+      - 第二个参数：替换字符串
+
+#### 6.2.7 Symbol类型
+   1. 使用
+      ```js
+      let s1 = Symbol();
+      let s2 = Symbol();
+      console.log(s1 === s2); // false
+
+      s1 = Symbol("symbol 1");
+      console.log(s1.toString()); // Symbol(symbol 1)
+      console.log(s1.description); // symbol 1
+
+      s1 = Symbol.for('symbol for');
+      s2 = Symbol.for('symbol for');
+      console.log(s1 === s1); // true
+      console.log(s1.description) // symbol for
+
+      let s3 = Symbol("123");
+      let s4 = Symbol.for("123");
+      console.log(Symbol.keyFor(s3)); // undefined
+      console.log(Symbol.keyFor(s4)); // 123
+      ```
+      > 使用`Symbol.for()`定义`Symbol`变量时，内存会记录相应的`description`，再次以`Symbol.for()`定义相同`description`的`Symbol`变量时，会直接使用上一次创建好的`Symbol`变量  
+
+      > `Symbol.keyFor()`可以获取到使用`Symbol.for()`定义的`Symbol`变量对应的描述（`Symbol`中可能称为`key`）
+   2. 用途  
+      所有的Symbol变量都是不同，用以区别变量，使其成为独一无二的变量 
+      > 例如：一个班级重名的同学，使用`symbol`对名字进行唯一化处理；缓存中数据唯一化处理，避免数据覆盖，可以使用symbol做为对象的key，再用这个key来避免覆盖
+      ```js
+      class Cache {
+         static cache = {}
+         static set(key, value) {
+            this.cache[key] = value;
+         }
+         static get(key) {
+            return this.cache[key];
+         }
+      }
+
+      let user1 = {
+         key: Symbol("cheng"),
+         name: "cheng",
+         age: 23
+      };
+
+      let user2 = {
+         key: Symbol("cheng"),
+         name: "cheng",
+         age: 73
+      };
+
+      Cache.set(user1.key, user1);
+      Cache.set(user2.key, user2);
+
+      console.log(Cache.get(user2.key)); 
+      // { key: Symbol(cheng), name: 'cheng', age: 73 }
+      ```
+   3. 对象的`Symbol`属性不能使用`for key in obj`和`for key of Object.keys(obj)`遍历到，使用`for key of Object.getOwnPropertySymbols(obj)`可以只遍历到对象的`Symbol`属性，使用`for key of Reflect.ownKeys(obj)`可以遍历到包含`Symbol`属性的所有属性，所以一般情况下使用`for in`遍历的时候，就可以做到相对简单的属性私有化。
 
 ### 6.3 引用类型/合成类型
 
@@ -898,7 +957,7 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
          - **累积系列（reduce、reduceRight）**
             - 依次处理数组的每个成员，最终累计为一个值，并返回该累积变量
             - 参数函数的四个参数：1）累积变量，默认为数组的第一个成员；2）当前变量，默认为数组的第二个成员；3）当前位置（从0开始）索引；4）原数组对象。前两个参数是必须的，后两个参数则是可选的。
-            - 如果要对累积变量指定初值，可以把它放在reduce方法和reduceRight方法的第二个参数，第二个参数相当于设定了默认值，处理空数组时尤其有用。
+            - 如果要对累积变量指定初值，可以把它放在reduce方法和reduceRight方法的第二个参数，第二个参数相当于设定了默认值，处理空数组时尤其有用。如果指定了累积变量的初始值，即给定了`Array.prototype.reduce`方法的第二个参数，则累积过程从数组第一个元素开始，否则就是以数组第一个元素为累积变量初始值，累积过程从数组第二个元素开始。
             ```js
             // 找出字符长度最长的数组成员
             function findLongest(entries) {
@@ -907,6 +966,25 @@ break语句和continue语句都具有跳转作用，可以让代码不按既有�
                }, '');
             }
             findLongest(['aaa', 'bb', 'c']) // "aaa"
+            ```
+            ```js
+            // 统计数组元素出现次数
+            let arr = [1, 2, 3, 1, 2, 4, 1, 3, 4, 1, 2];
+            let res = {};
+
+            res = arr.reduce((pre, curr, currIndex, array) => {
+               res[curr] ? res[curr]++ : res[curr] = 1;
+               return res;
+            }, -1);
+
+            console.log(res); // { '1': 4, '2': 3, '3': 2, '4': 2 }
+
+            let noRepeatArr = arr.reduce((norepeatarr, curr) => {
+               if (!norepeatarr.includes(curr)) norepeatarr.push(curr);
+               return norepeatarr;
+            }, []);
+
+            console.log(noRepeatArr); // [ 1, 2, 3, 4 ]
             ```
          - **查找系列**
             - **indexOf** 方法：返回给定元素在数组中第一次出现的位置，如果没有出现则返回-1。还可以接受第二个参数，表示搜索的开始位置。
@@ -1744,7 +1822,7 @@ i && doSomething();
    ```
 
 #### 10.3.8 第八式：class类模式（ES6语法糖）
-   - 接近传统语言的写法，让对象原型的写法更加清晰、更像面向对象编程的语法，类必须使用new调用，否则会报错。class中的constructor方法就是构造方法，this指向实例对象，方法之间不需要逗号分割，使用时也是使用new命令（与构造函数相同）
+   1. 接近传统语言的写法，让对象原型的写法更加清晰、更像面向对象编程的语法，类必须使用new调用，否则会报错。class中的constructor方法就是构造方法，this指向实例对象，方法之间不需要逗号分割，使用时也是使用new命令（与构造函数相同）。
       ```js
       class Person8 {
          constructor(name, age) {
@@ -1760,24 +1838,36 @@ i && doSomething();
 
       p41 = new Person8("allx", 12);
       ```
-   - 类的数据类型就是函数，类本身就指向构造函数
-   - 构造函数的prototype属性，在 ES6 的“类”上面继续存在
-      - 类的所有方法都定义在类的prototype属性上面，在类的实例上面调用方法，其实就是调用原型上的方法
-      - 由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面
-	
-   - 类的内部所有定义的方法，都是不可枚举的（non-enumerable）
-   - constructor方法
-      - 类的默认方法，通过new命令生成对象实例时，自动调用该方法，一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加
-      - 默认返回实例对象（即this），完全可以指定返回另外一个对象
-   - 类的实例
-      - 实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）
-      - 类的所有实例共享一个原型对象
-	- 取值函数、存值函数
-      - 存值函数和取值函数是设置在属性的 Descriptor 对象上的
-   - 类的属性名可使用方括号加表达式
-   - class表达式
-      - 采用 Class 表达式，可以写出立即执行的 Class
-   - 注意点
+   2. 类的数据类型就是函数，类本身就指向构造函数。构造函数的prototype属性，在 ES6 的“类”上面继续存在，类的所有方法都定义在类的prototype属性上面，在类的实例上面调用方法，其实就是调用原型上的方法，由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。类的内部所有定义的方法，都是不可枚举的（non-enumerable）。
+   ```js
+   class ClassTest {
+      constructor(name) {
+         this.name = name;
+      }
+
+      showName() {
+         console.log(this.name);
+      }
+   }
+
+   ClassTest.prototype['showClass']=function(){
+      console.log('ClassTest');
+   }
+
+   let classTest = new ClassTest('tiger');
+   console.log(ClassTest); // [Function: ClassTest]
+   console.log(typeof ClassTest); // function
+   console.log(ClassTest.prototype); // ClassTest { showClass: [Function] }
+   console.log(Object.getPrototypeOf(classTest)); // ClassTest { showClass: [Function] }
+   console.log(ClassTest.prototype.constructor === ClassTest); // true
+   console.log('showName' in ClassTest.prototype); // true
+   console.log('showClass' in ClassTest.prototype); // true
+   ```
+   3. constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法，一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加，默认返回实例对象（即this），但也完全可以指定返回另外一个对象。
+   4. 类的实例。实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）。类的所有实例共享一个原型对象。
+   5. 存值函数和取值函数是设置在属性的 Descriptor 对象上的
+   6. class表达式：采用 Class 表达式，可以写出立即执行的 Class
+   7. 注意：
       - 类和模块都是默认严格模式
       - 类中不存在变量提升
       - name属性返回紧跟在class后的类名
@@ -1788,126 +1878,109 @@ i && doSomething();
             1）在构造方法中绑定this，这样就不会找不到print方法了，  
             2）使用箭头函数（箭头函数内部的this总是指向定义时所在的对象），  
             3）使用Proxy，获取方法的时候，自动绑定this  
-   - 静态方法
+   8. 静态方法
       - 如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”
-      - 注意，如果静态方法包含this关键字，这个this指的是类，而不是实例
+      - 如果静态方法包含this关键字，这个this指的是类，而不是实例
       - 父类的静态方法，可以被子类继承
       - 静态方法也可以从super对象上调用的
-   - 实例属性
+   9. 实例属性
       - 实例属性除了定义在constructor()方法里面的this上面，也可以定义在类的最顶层
-         - 所有实例对象自身的属性都定义在类的头部，看上去简洁
-   - 静态属性
+      - 所有实例对象自身的属性都定义在类的头部，看上去简洁
+   1. 静态属性  
       - Class 本身的属性，即Class.propName，而不是定义在实例对象（this）上的属性
          `Person8.staticProp=“ppppp”；`
       - 一个提案提供了类的静态属性，写法是在实例属性的前面，加上static关键字
-   - 私有方法、私有属性
+   2. 私有方法、私有属性  
       - 只能在类的内部访问的方法和属性，外部不能访问，有利于代码的封装，但 ES6 不提供，只能通过变通方法模拟实现
       - 模拟	
          - 命名区别
          - 将私有方法移出模块，因为模块内部的所有方法都是对外可见的
          - 利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值
-      - 一个提案，为class加了私有属性。方法是在属性名或方法之前，使用#表示
-   - new.target
+      - 一个提案，为class加了私有属性。方法是在属性名或方法之前，使用#表示  
+   3. new.target  
       - ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数
       - 如果构造函数不是通过new命令或Reflect.construct()调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的
       - Class 内部调用new.target，返回当前 Class
       - 子类继承父类时，new.target会返回子类
          - 可以写出不能独立使用、必须继承后才能使用的类
 
-### 继承
+### 10.4 继承八招
 
-- 原型链继承
+#### 10.4.1 第一招：原型链继承
+   1. js仅支持实现继承，不支持接口继承，实现继承依靠原型链实现。构造函数、原型、实例的关系：构造函数有一个原型对象，原型对象有一个指向构造函数的指针，实例有一个指向原型对象的指针。让一个原型对象PA等于另一个构造函数B的实例b：PA有一个__proto__指针指向PB，PB有一个constrcutor指针指向B，a可以访问b能访问的所有原型属性和方法，`A.prototype=new B();`，需要注意PA的重写，导致了PA没有指向A的constructor指针属性，所以给原型添加方法的语句一定要放在原型对象重写的语句之后，且不能使用字面量对象，字面量重新复制会切断联系。
+      ```js
+      function Super() {
+         this.name = "name: super";
+      }
+      Super.prototype.getSuperName = function () {
+         console.log(this.name);
+      };
 
-	- js仅支持实现继承，不支持接口继承，实现继承依靠原型链实现
-	- 构造函数、原型、实例的关系：构造函数有一个原型对象，原型对象有一个指向构造函数的指针，实例有一个指向原型对象的指针
-	- 让一个原型对象PA等于另一个构造函数B的实例b：PA有一个__proto__指针指向PB，PB有一个constrcutor指针指向B，a可以访问b能访问的所有原型属性和方法
+      function Sub() {
+         this.name = "name: sub";
+      }
+      Sub.prototype = new Super();
+      Sub.prototype.getSubName = function () {
+         console.log(this.name);
+      }
 
-		- A.prototype=new B();
-		- 注意：PA的重写，导致了PA没有指向A的constructor指针属性了
-		- 给原型添加方法的语句一定要放在原型对象重写的语句之后
-		- 不能使用字面量对象，会切断联系
-		- function Super() {
-  this.name = "name: super";
-}
-Super.prototype.getSuperName = function () {
-  console.log(this.name);
-};
+      let subInstance = new Sub();
+      subInstance.getSubName();
+      ```
+   2. 确定实例和原型的关系:
+      - isinstanceof：测试实例与原型链中出现过的构造函数
+      - isPrototypeOf
+   3. 存在的问题
+      - 1）包含引用类型值的原型属性会被所有实例共享
+      - 2）在创建子类型实例的时候，不能向超类型的构造函数传递参数（没有办法在不影响所有对象实例的情况下，给超类型的构造函数传递参数）
+#### 10.4.2 借用构造函数继承
+   - 在子类型的构造函数中调用超类型的构造函数（可以向超类型构造函数传递参数）
+      ```js
+      function Super2(name) {
+         this.name = name;
+      }
 
-function Sub() {
-  this.name = "name: sub";
-}
-Sub.prototype = new Super();
-Sub.prototype.getSubName = function () {
-  console.log(this.name);
-}
+      function Sub2() {
+         Super2.call(this, "super name");
+         this.subname = "sub name";
+      }
+      Sub2.prototype.getSubName = function () {
+         console.log(this.subname);
+      }
 
-let subInstance = new Sub();
-subInstance.getSubName();
+      subInstance = new Sub2();
+      subInstance.getSubName();
+      ```
+   - 超类型的方法只能在构造函数内定义，因为在超类原型对象上定义的函数在子类中并不可见
 
-	- 确定实例和原型的关系
-	
-		- isinstanceof
-	
-			- 测试实例与原型链中出现过得构造函数
-	
-		- isPrototypeOf
-	
-	- 存在的问题
-	
-		- 1）包含引用类型值的原型属性会被所有实例共享
-		- 2）在创建子类型实例的时候，不能向超类型的构造函数传递参数（没有办法在不影响所有对象实例的情况下，给超类型的构造函数传递参数）
+#### 10.4.3 组合继承（原型链+借用构造函数）
+   ```js
+   function Super3(supername) {
+      this.supername = supername;
+      this.hobbies = ["jump", "rap"];
+   }
+   Super3.prototype.getSuperName = function () {
+      console.log(this.supername);
+   }
 
-- 借用构造函数继承
+   function Sub3() {
+      Super3.call(this, "super name");
+      this.subname = "sub name";
+   }
+   Sub3.prototype = new Super3();
+   Sub3.prototype.getSubName = function () {
+      console.log(this.subname);
+   }
 
-	- 在子类型的构造函数中调用超类型的构造函数（可以向超类型构造函数传递参数）
+   subInstance = new Sub3();
+   subInstance.getSubName();
+   subInstance.hobbies.unshift("sing");
+   console.log(subInstance.hobbies);
+   console.log(subInstance.supername);
 
-		- function Super2(name) {
-  this.name = name;
-}
-
-function Sub2() {
-  Super2.call(this, "super name");
-  this.subname = "sub name";
-}
-Sub2.prototype.getSubName = function () {
-  console.log(this.subname);
-}
-
-subInstance = new Sub2();
-subInstance.getSubName();
-
-	- 超类型的方法只能在构造函数内定义，因为在超类原型对象上定义的函数在子类中并不可见
-
-- 组合继承
-
-	- 原型链+借用构造函数
-
-		- function Super3(supername) {
-  this.supername = supername;
-  this.hobbies = ["jump", "rap"];
-}
-Super3.prototype.getSuperName = function () {
-  console.log(this.supername);
-}
-
-function Sub3() {
-  Super3.call(this, "super name");
-  this.subname = "sub name";
-}
-Sub3.prototype = new Super3();
-Sub3.prototype.getSubName = function () {
-  console.log(this.subname);
-}
-
-subInstance = new Sub3();
-subInstance.getSubName();
-subInstance.hobbies.unshift("sing");
-console.log(subInstance.hobbies);
-console.log(subInstance.supername);
-
-let subInstance2 = new Sub3();
-console.log(subInstance2.hobbies);
-
+   let subInstance2 = new Sub3();
+   console.log(subInstance2.hobbies);
+   ```
 - 原型式继承
 
 	- Object.create()
