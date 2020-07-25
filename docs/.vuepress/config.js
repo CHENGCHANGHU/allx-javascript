@@ -21,9 +21,10 @@ module.exports = {
       ['/', '首页'], // 以 / 结尾的路径将会被视为 */README.md，这个链接的文字将会被自动获取到
       ['/tech/use.md', 'vuepress + github pages搭建静态网页'],
       ['/tech/ALLX-JavaScript.md', 'JS基础语法'],
-      ['/tech/ALLX-Vue.md', 'Vue基础使用']
+      ['/tech/ALLX-Vue.md', 'Vue基础使用'],
+      ['/tech/ALLX-Networks.md', '网络基础知识'],
     ],
-    sidebarDepth: 3,
+    sidebarDepth: 2,
     activeHeaderLinks: true,
     lastUpdated: '最近更新', // string | boolean
     logo: '/img/hc-logo.png',
