@@ -40,7 +40,8 @@
 
 ## 3 部署到github pages
    1. 使用`rm -r ./assets/,./essay/,./img/,./tech/,*.html`命令清除上一次的构建文件
-   2. 使用`cp -r .\dist\* .\`命令复制`dist`文件夹下的构建后的文件到项目根目录中
-   3. 使用`git add .`和`git commit -m 'comment'`命令将修改添加到本地`git`中
-   4. 使用`git push origin master`命令将本地仓库传输到远程仓库
-   5. 打开浏览器查看
+   2. 使用`npm run build`命令构建项目
+   3. 使用`cp -r .\dist\* .\`命令复制`dist`文件夹下的构建后的文件到项目根目录中
+   4. 使用`git add .`和`git commit -m 'comment'`命令将修改添加到本地`git`中
+   5. 使用`git push origin master`命令将本地仓库传输到远程仓库
+   6. 打开浏览器查看

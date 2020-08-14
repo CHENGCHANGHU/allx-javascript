@@ -23,6 +23,7 @@ module.exports = {
       ['/tech/ALLX-JavaScript.md', 'JS基础语法'],
       ['/tech/ALLX-Vue.md', 'Vue基础使用'],
       ['/tech/ALLX-Networks.md', '网络基础知识'],
+      ['/tech/ALLX-review.md', '面试要点'],
     ],
     sidebarDepth: 2,
     activeHeaderLinks: true,
