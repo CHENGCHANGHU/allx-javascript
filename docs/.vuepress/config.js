@@ -24,6 +24,7 @@ module.exports = {
       ['/tech/ALLX-Vue.md', 'Vue基础使用'],
       ['/tech/ALLX-Networks.md', '网络基础知识'],
       ['/tech/ALLX-review.md', '面试要点'],
+      ['/tech/ALLX-algorithm.md', '算法与数据结构基础知识'],
     ],
     sidebarDepth: 2,
     activeHeaderLinks: true,

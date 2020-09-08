@@ -464,3 +464,5 @@ Cross Site Scripting：攻击者往web页面插入恶意Script脚本，致使页
    - 创建：字面量`const pattern = /test/`或正则对象`const pattern = new RegExp("test")`
    - 修饰符：
       - i：大小写不敏感
+
+
