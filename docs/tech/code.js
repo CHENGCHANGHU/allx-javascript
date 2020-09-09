@@ -1,5 +1,1 @@
-let p = new Promise((resolve, reject) => {
-  console.log('test');
-  resolve();
-}).then(data => console.log('ok'));
-console.log('main'); 
+let data = [[8, 4, 1], [6, 5, 2]];
