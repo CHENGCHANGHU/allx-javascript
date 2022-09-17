@@ -11,8 +11,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev":"npx vuepress dev docs",
-    "build":"npx vuepress build docs",
+    "dev":"npx vuepress dev documents",
+    "build":"npx vuepress build documents",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
